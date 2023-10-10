@@ -1,45 +1,33 @@
 import requests
 import json
-# importing pandas as pd
-import pandas as pd
 
 url = "www.cbr-xml-daily.ru/daily_json.js"
+array = []
 
-for i in range(3):
+with open("dataset.csv", "w") as dataset:
 
-    urlmodified = "https://" + url
+    for i in range(15):
 
-    response = requests.get(urlmodified)
-    response_json = json.loads(response.text)
+        urlmodified = "https://" + url
 
-    date = response_json['Date']
-    dollar = response_json['Valute']['USD']['Value']
-    # print(date, dollar)
+        response = requests.get(urlmodified)
+        response_json = json.loads(response.text)
 
-    url = response_json['PreviousURL'][2:]
+        date = response_json['Date']
+        dollar = response_json['Valute']['USD']['Value']
 
-    dllar = [dollar]
-    dte = [dollar]
-    dict = {'date': dte, 'dollar': dllar}
-    df = pd.DataFrame(dict)
-    print(df)
+        url = response_json['PreviousURL'][2:]
 
-# saving the dataframe
-df.to_csv('file1.csv')
-# print(url)
-# print(response_json)
-# import requests
-# import json
-# from bs4 import BeautifulSoup
+        dllar = dollar
+        dte = date
 
-# url = 'https://www.cbr-xml-daily.ru/daily_json.js'
-# html = requests.get(url)
-# # print(html.content)
-# soup = BeautifulSoup(html.text,'html.parser')
-# site_json=json.loads(soup.text)
-# print(site_json)
+        stroke = ''
+        stroke += str(dte) + ' , ' + str(dllar) + ' \n'
+        print(stroke)
+        array.append(stroke)
 
-# print(dollar_dict)
-# print(html.content)
-# soup = BeautifulSoup(html.text, 'html')
-# print(soup)
+    for i in array:
+        dataset.write(i)
+    
+
+        
