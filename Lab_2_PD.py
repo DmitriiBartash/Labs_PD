@@ -6,7 +6,7 @@ array = []
 
 with open("dataset.csv", "w") as dataset:
 
-    for i in range(15):
+    for i in range(900):
 
         urlmodified = "https://" + url
 
